@@ -1,0 +1,64 @@
+{% extends 'base.html' %} {% block title %}View Brand{% endblock %} {% load static
+%} {%block content%}
+<a href="{% url 'computer:add_brand' %}"
+  ><button type="submit" class="button">Add Brand</button></a
+>
+<!-- <a href="{% url 'computer:add_brand' %}">
+  <button class="button">Add Brand</button>
+</a> -->
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Logo</th>
+      <th scope="col">Brand</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for data in page_obj%}
+    <tr>
+      <td>
+        <img
+          src="http://localhost:8000/media/{{ data.logo }}"
+          class="img-fluid"
+          alt="{{ data.image }}"
+          style="height: 65px; width: 150px; padding: 2px"
+        />
+      </td>
+      <td>{{data.brand_name}}</td>
+      <td style="text-align: center">
+        <a href="{% url 'computer:update_brand' data.id %}"
+          ><button type="submit" class="btn btn-primary">Edit</button></a
+        >
+      </td>
+      <td style="text-align: center">
+        <a href="{% url 'computer:delete_brand' data.id %}"
+          ><button type="submit" class="btn btn-danger">Delete</button></a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="pagination">
+  <span class="step-links">
+    {%if page_obj.has_previous%}
+    <a href="?page=1">&laquo; first</a>
+    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+    {%endif%}
+
+    <span class="current">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+
+    {%if page_obj.has_next%}
+    <a href="?page={{ page_obj.next_page_number }}">next</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+
+{%endblock%}
