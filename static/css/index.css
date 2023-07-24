@@ -66,7 +66,7 @@ ul {
 .button {
   background-color: #4caf50; /* Green */
   border: none;
-  width: 150px;
+  width: 225px;
   color: white;
   padding: 15px 32px;
   text-align: center;
@@ -74,7 +74,7 @@ ul {
   display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
-  margin-left: 950px;
+  margin-left: 850px;
   cursor: context-menu;
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
