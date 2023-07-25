@@ -1,18 +1,14 @@
-{% extends 'base.html' %} {% block title %}View Brand{% endblock %} {% load static
-%} {%block content%}
+{% extends 'base.html' %} {% block title %}View Brand{% endblock %} {% load
+static %} {%block content%}
 <a href="{% url 'computer:add_brand' %}"
-  ><button type="submit" class="button">Add Brand</button></a
+  ><button type="submit" class="btn btn-success">Add Brand</button></a
 >
-<!-- <a href="{% url 'computer:add_brand' %}">
-  <button class="button">Add Brand</button>
-</a> -->
 
 <table class="table">
   <thead>
     <tr>
       <th scope="col">Logo</th>
       <th scope="col">Brand</th>
-      <th scope="col"></th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -29,13 +25,14 @@
       </td>
       <td>{{data.brand_name}}</td>
       <td style="text-align: center">
-        <a href="{% url 'computer:update_brand' data.id %}"
-          ><button type="submit" class="btn btn-primary">Edit</button></a
-        >
-      </td>
-      <td style="text-align: center">
-        <a href="{% url 'computer:delete_brand' data.id %}"
-          ><button type="submit" class="btn btn-danger">Delete</button></a
+        <a href="{% url 'computer:update_brand' data.id %}">
+          <button type="submit" class="btn btn-primary">Edit</button>
+        </a>
+
+        <a href="{% url 'computer:delete_brand' data.id %}">
+          <button class="btn btn-danger" onclick="confirmDelete()">
+            Delete
+          </button></a
         >
       </td>
     </tr>
@@ -51,7 +48,8 @@
     {%endif%}
 
     <span class="current">
-      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      {% if page_obj.paginator.num_pages > 1 %} Page {{ page_obj.number }} of
+      {{page_obj.paginator.num_pages}}. {% endif %}
     </span>
 
     {%if page_obj.has_next%}

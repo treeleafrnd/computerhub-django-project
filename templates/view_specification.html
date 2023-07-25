@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block title %}View Specification{% endblock %} {%
 load static %} {%block content%}
 <a href="{% url 'computer:add_specification' %}">
-  <button class="button">Add</button>
+  <button class="btn btn-success">Add Specification</button>
 </a>
 <table class="table">
   <thead>
@@ -11,7 +11,6 @@ load static %} {%block content%}
       <th scope="col">Minimum Price</th>
       <th scope="col">Maximum Price</th>
       <th scope="col">RAM</th>
-      <th scope="col"></th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -28,10 +27,11 @@ load static %} {%block content%}
         <a href="{% url 'computer:update_specification' data.id %}"
           ><button type="submit" class="btn btn-primary">Edit</button></a
         >
-      </td>
-      <td>
+
         <a href="{% url 'computer:delete_specification' data.id %}"
-          ><button type="submit" class="btn btn-danger">Delete</button></a
+          ><button class="btn btn-danger" onclick="confirmDelete()">
+            Delete
+          </button></a
         >
       </td>
     </tr>
@@ -47,7 +47,8 @@ load static %} {%block content%}
     {%endif%}
 
     <span class="current">
-      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      {% if page_obj.paginator.num_pages > 1 %} Page {{ page_obj.number }} of
+      {{page_obj.paginator.num_pages }}. {% endif %}
     </span>
 
     {%if page_obj.has_next%}

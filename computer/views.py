@@ -100,7 +100,7 @@ def view_computer(request):
 
 def delete_computer(request, id):
     Computer.objects.get(id = id).delete()
-    return render(request,'update_message.html')
+    return render(request,'index.html')
 
 def add_brand(request):
     if request.method == 'POST':
@@ -159,7 +159,7 @@ def update_brand(request, id):
 
 def delete_brand(request, id):
     ComputerBrand.objects.get(id = id).delete()
-    return render(request,'update_message.html')
+    return render(request,'index.html')
 
 def add_specification(request):
     
@@ -225,4 +225,4 @@ def update_specification(request, id):
 
 def delete_specification(request, id):
     ComputerSpecification.objects.get(id = id).delete()
-    return render(request,'update_message.html')
+    return render(request,'index.html')

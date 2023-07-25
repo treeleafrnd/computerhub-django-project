@@ -66,20 +66,21 @@ ul {
 .button {
   background-color: #4caf50; /* Green */
   border: none;
-  width: 225px;
   color: white;
-  padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
-  margin-left: 850px;
   cursor: context-menu;
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  border-radius: 7%;
+
+  background-color: #007bff;
+  padding: 10px 20px;
+
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 /* .button1 {
@@ -107,4 +108,8 @@ input[type="file"] {
   width: 350px;
 
   cursor: pointer;
+}
+
+.btn-success {
+  margin: 5px;
 }
