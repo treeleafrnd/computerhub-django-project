@@ -113,3 +113,10 @@ input[type="file"] {
 .btn-success {
   margin: 5px;
 }
+
+img[src=""] {
+  display: none;
+}
+i[src=""] {
+  display: none;
+}

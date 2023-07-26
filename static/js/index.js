@@ -48,3 +48,21 @@ function confirmDelete() {
 function updateMessage() {
   alert("Database Updated!");
 }
+
+function preview() {
+  frame.src = URL.createObjectURL(event.target.files[0]);
+  document.getElementById("i").setAttribute("src", "democlass");
+}
+
+var inputFile = document.getElementById("brand_logo");
+removeImg = () => {
+  document.getElementById("frame").setAttribute("src", "");
+  document.getElementById("i").setAttribute("src", "");
+  inputFile.value = "";
+};
+var customFile = document.getElementById("customFile");
+removeComputerImg = () => {
+  document.getElementById("frame").setAttribute("src", "");
+  document.getElementById("i").setAttribute("src", "");
+  customFile.value = "";
+};

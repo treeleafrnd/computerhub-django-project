@@ -3,28 +3,43 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from .models import Computer, ComputerSpecification, ComputerBrand
-
-# Create your views here.
-from django.http import HttpResponse
 from django.views import View
 
-def index(request):
-    return render(request,'index.html')
+# Create your views here.
 
-def add_computer(request):
-    totalPrice = 0.0
-    message=''
 
-    temp = ComputerSpecification.objects.all()
-    specifications = []
-    for specification in temp:
-        specifications.append({"id": specification.id, "generation": specification.generation,})
+class index(View):
+    
+    template_name = 'index.html'
 
-    if request.method == 'POST':
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, )
+
+
+# def index(request):
+    # return render(request,'index.html')
+
+class AddComputer(View):
+    def get(self, request):
+        
+        message=''
+        
+        temp = ComputerSpecification.objects.all()
+        specifications = []
+        for specification in temp:
+            specifications.append({"id": specification.id, "generation": specification.generation,})
+        return render(request,'add_computer.html', {"specifications":specifications, 'message': message})
+
+    def post(self, request):
+        totalPrice = 0.0
+        temp = ComputerSpecification.objects.all()
+        specifications = []
+        for specification in temp:
+            specifications.append({"id": specification.id, "generation": specification.generation,})
         files = request.FILES.getlist('files')
         computerCode = request.POST.get('computerCode')
         specificationId = request.POST.get('specificationId')
-      
+    
         quantity = request.POST.get('quantity')
         unitPrice = request.POST.get('unitPrice')
         totalPrice = float(quantity)*float(unitPrice)
@@ -37,29 +52,78 @@ def add_computer(request):
             saveData = Computer(computer_code=computerCode, specification= specification, quantity=quantity, unit_rate=unitPrice, total_price = totalPrice, image=image_url)
             saveData.save()
             message='Data successfully added!'
+            return render(request,'add_computer.html', {"specifications":specifications, 'message': message})
             
         else:
             print("Invalid Unit Price!")
             message='Price Out of Range.'
             return render(request, 'add_computer.html', {"specifications":specifications, 'message': message, 'computer_code': computerCode, 'quantity': quantity,})
 
-    return render(request,'add_computer.html', {"specifications":specifications, 'message': message})
+        
 
 
 
-def update_computer(request, id):
-    temp = ComputerSpecification.objects.all()
-    specifications = []
-    for specification in temp:
-        specifications.append({"id": specification.id, "generation": specification.generation})
+# def update_computer(request, id):
+#     temp = ComputerSpecification.objects.all()
+#     specifications = []
+#     for specification in temp:
+#         specifications.append({"id": specification.id, "generation": specification.generation})
 
-    try:
-        current_specification = Computer.objects.get(pk=id)
-        image_url= current_specification.image
-    except Computer.DoesNotExist:
-        raise Http404("The model does not exist")
+#     try:
+#         current_specification = Computer.objects.get(pk=id)
+#         image_url= current_specification.image
+#     except Computer.DoesNotExist:
+#         raise Http404("The model does not exist")
 
-    if request.method == 'POST':
+#     if request.method == 'POST':
+#         obj = ComputerSpecification.objects.filter(id=id)
+#         obj.computerCode = request.POST.get('computerCode')
+#         obj.quantity = request.POST.get('quantity')
+#         specificationId = request.POST.get('specificationId')
+        
+        
+#         files = request.FILES.getlist('files')
+#         for file in files:
+#             if(file!=''):
+#                 image_to_delete = Computer.objects.get(id = id).image
+#                 image_to_delete.delete()
+#                 image_url = file
+#             print(image_url)
+#         obj.unitPrice = request.POST.get('unitPrice')
+#         totalPrice = float(obj.quantity)*float(obj.unitPrice)
+    
+#         specification = ComputerSpecification.objects.filter(id=specificationId)[0]
+#         saveData = Computer(id = id,computer_code=obj.computerCode, specification= specification, quantity=obj.quantity, unit_rate=obj.unitPrice, total_price = totalPrice,  image = image_url)
+#         saveData.save()
+#         return render(request, "update_message.html")
+    
+#     return render(request, 'update_computer.html', {"specifications":specifications, "current_specification":current_specification})
+
+class UpdateComputer(View):
+    def get(self, request, id):
+        temp = ComputerSpecification.objects.all()
+        specifications = []
+        for specification in temp:
+            specifications.append({"id": specification.id, "generation": specification.generation})
+
+        try:
+            current_specification = Computer.objects.get(pk=id)
+            image_url= current_specification.image
+        except Computer.DoesNotExist:
+            raise Http404("The model does not exist")
+        return render(request, 'update_computer.html', {"specifications":specifications, "current_specification":current_specification})
+
+    def post(self, request, id):
+        temp = ComputerSpecification.objects.all()
+        specifications = []
+        for specification in temp:
+            specifications.append({"id": specification.id, "generation": specification.generation})
+
+        try:
+            current_specification = Computer.objects.get(pk=id)
+            image_url= current_specification.image
+        except Computer.DoesNotExist:
+            raise Http404("The model does not exist")
         obj = ComputerSpecification.objects.filter(id=id)
         obj.computerCode = request.POST.get('computerCode')
         obj.quantity = request.POST.get('quantity')
@@ -80,11 +144,6 @@ def update_computer(request, id):
         saveData = Computer(id = id,computer_code=obj.computerCode, specification= specification, quantity=obj.quantity, unit_rate=obj.unitPrice, total_price = totalPrice,  image = image_url)
         saveData.save()
         return render(request, "update_message.html")
-    
-    return render(request, 'update_computer.html', {"specifications":specifications, "current_specification":current_specification})
-
-
-
 
 def view_computer(request):
     temp = Computer.objects.all()

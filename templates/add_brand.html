@@ -38,9 +38,16 @@ static %} {% block content %}
         id="brand_logo"
         name="brand_logo"
         accept="image/*"
+        onchange="preview()"
         required
       />
     </div>
+    <img
+      id="frame"
+      src=""
+      style="width: 80px; height: 50px; border-radius: 7%"
+    />
+    <i class="fa fa-trash" onclick="removeImg()" src="" id="i"></i>
   </div>
   <div
     class="form-group row"
