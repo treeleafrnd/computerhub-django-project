@@ -66,3 +66,61 @@ removeComputerImg = () => {
   document.getElementById("i").setAttribute("src", "");
   customFile.value = "";
 };
+
+// function togglePopup() {
+//   document.getElementById("popup-1").classList.toggle("active");
+//   console.log("Button Clicked.");
+//   // element.innerHTML = "This is Active";
+// }
+let verticalValue;
+document.addEventListener("scroll", () => {
+  const vertical = window.scrollY; // Getting vertical scrollbar position
+  const horizontal = window.scrollX; // Getting horizontal scrollbar position
+
+  verticalValue = vertical;
+});
+
+function openForm(y) {
+  // let x = document.getElementById("number").innerHTML;
+  // console.log(x);
+  // let elem = document.getElementById("myForm-" + y);
+  // let rect = elem.getBoundingClientRect();
+  // console.log(rect["y"]);
+  element = document.getElementById("element-box-" + y);
+  let yaxis = element.scrollHeight;
+  console.log(yaxis);
+  console.log(verticalValue);
+  let xaxis = element.scrollWidth;
+  if (verticalValue > 600) {
+    document.getElementById("myForm-" + y).style.top = "130%";
+    console.log("middle div");
+  } else if (verticalValue > 300) {
+    document.getElementById("myForm-" + y).style.top = "100%";
+    console.log("bottom div");
+  }
+
+  document.getElementById("myForm-" + y).style.display = "block";
+  // if (vertical > 300) {
+  //   document.getElementById("myForm-" + y).style.top = "130%";
+  //   console.log("bottom div");
+  // } else {
+  //   document.getElementById("myForm-" + y).style.top = "55%";
+  // }
+  // document.getElementById("myForm-" + y).style.top = "130%";
+  // if (screen.height) {
+  //   link.style.top = "-200%";
+  // } else {
+  //   link.style.top = "100%";
+  // }
+  // document.getElementById("myForm-" + y).style.display = "block";
+  console.log("Clicked");
+  // return x;
+}
+
+function closeForm(x) {
+  // x = document.getElementById("number");
+  console.log(x);
+  document.getElementById("myForm-" + x).style.display = "none";
+}
+
+x;

@@ -4,20 +4,32 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator
 from .models import Computer, ComputerSpecification, ComputerBrand
 from django.views import View
+from django.views.generic.base import TemplateView
 
 # Create your views here.
 
 
 class index(View):
-    
-    template_name = 'index.html'
+    def get(self, request):
+        temp = Computer.objects.all()
+        if len(temp)<12:
+            number_computer = len(temp)
+        else:
+            number_computer = 12
+        specifications = []
+        for i in range(number_computer):
+            specification = Computer.objects.all()[i]
+            temp_spec = ComputerSpecification.objects.filter(id = specification.specification_id)[0]
+            # print(temp_spec.brand_id)
+            temp_brand = ComputerBrand.objects.filter(id=temp_spec.brand_id)[0]
+            # print(temp_brand.logo)
+            # print(temp_brand.brand_name)
 
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, )
+            specifications.append({"id": specification.id, "computer_image": specification.image,"unit_price": specification.unit_rate,
+                                   "ram": temp_spec.ram, "computer_code": specification.computer_code, "quantity": specification.quantity, "specification": temp_spec.generation,"specification_id": specification.specification_id, "brand_name":temp_brand.brand_name, "brand_logo":temp_brand.logo})
+        # print(specifications[0])
+        return render(request,'index.html', {"specifications": specifications})
 
-
-# def index(request):
-    # return render(request,'index.html')
 
 class AddComputer(View):
     def get(self, request):
@@ -39,6 +51,7 @@ class AddComputer(View):
         files = request.FILES.getlist('files')
         computerCode = request.POST.get('computerCode')
         specificationId = request.POST.get('specificationId')
+        print(specificationId)
     
         quantity = request.POST.get('quantity')
         unitPrice = request.POST.get('unitPrice')
@@ -46,6 +59,7 @@ class AddComputer(View):
         for file in files:
             image_url = file
         specification = ComputerSpecification.objects.filter(id=specificationId)[0]
+        print(specification)
         price_min = ComputerSpecification.objects.filter(id=specificationId)[0].price_min
         price_max= ComputerSpecification.objects.filter(id=specificationId)[0].price_max
         if float(unitPrice) >= price_min and float(unitPrice) <= price_max:
@@ -59,45 +73,6 @@ class AddComputer(View):
             message='Price Out of Range.'
             return render(request, 'add_computer.html', {"specifications":specifications, 'message': message, 'computer_code': computerCode, 'quantity': quantity,})
 
-        
-
-
-
-# def update_computer(request, id):
-#     temp = ComputerSpecification.objects.all()
-#     specifications = []
-#     for specification in temp:
-#         specifications.append({"id": specification.id, "generation": specification.generation})
-
-#     try:
-#         current_specification = Computer.objects.get(pk=id)
-#         image_url= current_specification.image
-#     except Computer.DoesNotExist:
-#         raise Http404("The model does not exist")
-
-#     if request.method == 'POST':
-#         obj = ComputerSpecification.objects.filter(id=id)
-#         obj.computerCode = request.POST.get('computerCode')
-#         obj.quantity = request.POST.get('quantity')
-#         specificationId = request.POST.get('specificationId')
-        
-        
-#         files = request.FILES.getlist('files')
-#         for file in files:
-#             if(file!=''):
-#                 image_to_delete = Computer.objects.get(id = id).image
-#                 image_to_delete.delete()
-#                 image_url = file
-#             print(image_url)
-#         obj.unitPrice = request.POST.get('unitPrice')
-#         totalPrice = float(obj.quantity)*float(obj.unitPrice)
-    
-#         specification = ComputerSpecification.objects.filter(id=specificationId)[0]
-#         saveData = Computer(id = id,computer_code=obj.computerCode, specification= specification, quantity=obj.quantity, unit_rate=obj.unitPrice, total_price = totalPrice,  image = image_url)
-#         saveData.save()
-#         return render(request, "update_message.html")
-    
-#     return render(request, 'update_computer.html', {"specifications":specifications, "current_specification":current_specification})
 
 class UpdateComputer(View):
     def get(self, request, id):
@@ -158,6 +133,7 @@ def view_computer(request):
     return render(request, 'view_computer.html', {'detail_list': detail_list, 'page_obj': page_obj})
 
 def delete_computer(request, id):
+    Computer.objects.get(id = id).image.delete()
     Computer.objects.get(id = id).delete()
     return render(request,'index.html')
 
@@ -217,7 +193,9 @@ def update_brand(request, id):
     return render(request, 'update_brand.html',{'current_specification': current_specification})
 
 def delete_brand(request, id):
+    ComputerBrand.objects.get(id = id).logo.delete()
     ComputerBrand.objects.get(id = id).delete()
+    
     return render(request,'index.html')
 
 def add_specification(request):

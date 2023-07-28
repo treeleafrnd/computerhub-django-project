@@ -1,2 +1,78 @@
 {% extends 'base.html' %} {% block title %}Home{% endblock %} {% load static %}
-{% block content %} Index Page {% endblock %}
+{% block content %}
+
+<div style="display: flex; flex-wrap: wrap">
+  {% for specification in specifications %}
+  <div class="form" id="myForm-{{specification.id}}">
+    <div class="popup">
+      <h2>Computer Detail</h2>
+      <div class="flex-container">
+
+        <div class="flex-child">
+          <img
+      src="media/{{specification.computer_image}}"
+      alt=""
+      style="
+        height: 200px;
+        width: 320px;
+        margin: 2px;
+        border: 1px outset rgb(203, 232, 241);
+      "
+    />
+        </div>
+        
+        <div class="flex-child">
+          <b>{{specification.brand_name}}</b>
+          <img src="media/{{specification.brand_logo}}" alt="{{specification.brand_logo}}" style="height: 50px; width: 70px; border-radius: 5px;">
+         
+         
+        </div>
+        
+      </div>
+      <div style="margin: 20px;">
+        <p>Computer Code: {{specification.computer_code}}</p>
+        <p><b>Rs. {{specification.unit_price}}</b></p>
+        
+        <p>{{specification.specification}}</p>
+        <p><b>{{specification.ram}} GB RAM</b></p>
+      </div>
+    <input name="{{specification.id}}" onclick="closeForm(name)" placeholder="Close" style="height: 20px; width: 50px;"></input>
+  <br>
+  </div>
+  </div>
+
+
+  <div class="element-box" id="element-box-{{specification.id}}">
+    <img
+      src="media/{{specification.computer_image}}"
+      alt=""
+      style="
+        height: 150px;
+        width: 220px;
+        margin: 2px;
+        border: 1px outset rgb(203, 232, 241);
+      "
+      name="{{specification.id}}"
+      onclick="openForm(name)"
+    />
+    <!-- <p id="number">{{specification.id}}</p> -->
+    <p style="margin-top: 10px">
+      <!-- {{forloop.counter}}  -->
+      Computer Code: {{ specification.computer_code }}
+    </p>
+    <p>{{specification.specification}}</p>
+
+    <p>Rs. <b>{{ specification.unit_price }}</b></p>
+
+    <img
+      src="media/{{specification.brand_logo}}"
+      alt=""
+      style="height: 45px; width: 70px; border-radius: 5%; margin-right: 6px"
+      onclick="openForm()"
+    />
+    <b> {{specification.brand_name}}</b>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
