@@ -3,7 +3,7 @@ static %} {% block content %}
 
 <form
   method="post"
-  action="{% url 'computer:update_computer' current_specification.id %}"
+  action="{% url 'computer:computer_update' current_specification.id %}"
   enctype="multipart/form-data"
 >
   {% csrf_token %}

@@ -17,7 +17,7 @@ body {
 }
 
 .header {
-  /* position: fixed; */
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
@@ -133,7 +133,7 @@ i[src=""] {
   margin: 4px;
   text-align: left;
 }
-.element :hover {
+.element-box:hover {
   box-shadow: 23px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
@@ -143,14 +143,14 @@ i[src=""] {
   opacity: 1;
   height: 600px;
   width: 600px;
-  /* position: fixed; */
-  position: absolute;
+  position: fixed;
+  /* position: absolute; */
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 5px;
   background: #fff;
-  border: #b4d4f5 1px solid;
+  border: #080808 2px solid;
   transition: opacity 500ms;
 }
 .form h2 {

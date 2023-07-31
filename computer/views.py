@@ -175,7 +175,7 @@ def update_brand(request, id):
     
     if request.method == 'POST':
         obj = ComputerBrand.objects.get(id=id)
-        image_url= obj.logo
+        image_url= obj.logo.name
         
         files = request.FILES.getlist('brand_logo')
         brand_name = request.POST.get('brand_name')

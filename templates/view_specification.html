@@ -1,8 +1,8 @@
 {% extends 'base.html' %} {% block title %}View Specification{% endblock %} {%
 load static %} {%block content%}
-<a href="{% url 'computer:add_specification' %}">
-  <button class="btn btn-success">Add Specification</button>
-</a>
+<form action="{% url 'computer:add_specification' %}">
+  <button type="submit" class="btn btn-success">Add Specification</button>
+</form>
 <table class="table">
   <thead>
     <tr>

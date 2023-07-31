@@ -34,30 +34,34 @@
         <nav class="navbar">
           <ul class="nav_list">
             <li class="nav_item">
-              <a href="{% url 'computer:view_brand' %}" class="nav-link"
+              <a
+                href="{% url 'computer:view_brand' %}"
+                class="nav-link"
+                id="brand_id"
                 >Brand</a
               >
             </li>
           </ul>
           <ul class="nav_list">
             <li class="nav_item">
-              <a href="{% url 'computer:view_specification' %}" class="nav-link"
+              <a
+                href="{% url 'computer:view_specification' %}"
+                class="nav-link"
+                id="specification_id"
                 >Specification</a
               >
             </li>
           </ul>
           <ul class="nav_list">
             <li class="nav_item">
-              <a href="{% url 'computer:view_computer' %}" class="nav-link"
+              <a
+                href="{% url 'computer:computer_view' %}"
+                class="nav-link"
+                id="computer_id"
                 >Computer</a
               >
             </li>
           </ul>
-
-          <!-- <a href="{% url 'computer:view_specification' %}" class="nav-item"
-            >Specification</a
-          >
-          <a href="{% url 'computer:view_computer' %}" class="nav-item">Computer</a> -->
         </nav>
       </header>
 

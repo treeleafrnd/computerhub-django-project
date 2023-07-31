@@ -1,27 +1,40 @@
-// Get all navigation links with the class "nav-link"
-const navLinks = document.querySelectorAll(".nav-link");
+var url = window.location.href;
+if (url.indexOf("computer") > -1) {
+  document.getElementById("computer_id").classList.add("active");
+  console.log("active");
+} else if (url.indexOf("brand") > -1) {
+  document.getElementById("brand_id").classList.add("active");
+  console.log("active");
+}
+else if (url.indexOf("specification") > -1) {
+  document.getElementById("specification_id").classList.add("active");
+  console.log("active");
+}
 
-// Add a click event listener to each navigation link
-navLinks.forEach((link) => {
-  link.addEventListener("click", (event) => {
-    // Remove the "active" class from any previously active link
-    const activeLink = document.querySelector(".nav-link.active");
-    if (activeLink) {
-      activeLink.classList.remove("active");
-    }
+// // Get all navigation links with the class "nav-link"
+// const navLinks = document.querySelectorAll(".nav-link");
 
-    // Add the "active" class to the clicked link
-    link.classList.add("active");
-  });
-});
+// // Add a click event listener to each navigation link
+// navLinks.forEach((link) => {
+//   link.addEventListener("click", (event) => {
+//     // Remove the "active" class from any previously active link
+//     const activeLink = document.querySelector(".nav-link.active");
+//     if (activeLink) {
+//       activeLink.classList.remove("active");
+//     }
 
-// Optionally, add the "active" class to the link corresponding to the current URL
-const currentURL = window.location.pathname;
-navLinks.forEach((link) => {
-  if (link.getAttribute("href") === currentURL) {
-    link.classList.add("active");
-  }
-});
+//     // Add the "active" class to the clicked link
+//     link.classList.add("active");
+//   });
+// });
+
+// // Optionally, add the "active" class to the link corresponding to the current URL
+// const currentURL = window.location.pathname;
+// navLinks.forEach((link) => {
+//   if (link.getAttribute("href") === currentURL) {
+//     link.classList.add("active");
+//   }
+// });
 
 // let current_location = location.pathname.split("/")[1];
 // if (current_location === "") return;
@@ -91,13 +104,14 @@ function openForm(y) {
   console.log(yaxis);
   console.log(verticalValue);
   let xaxis = element.scrollWidth;
-  if (verticalValue > 600) {
-    document.getElementById("myForm-" + y).style.top = "130%";
-    console.log("middle div");
-  } else if (verticalValue > 300) {
-    document.getElementById("myForm-" + y).style.top = "100%";
-    console.log("bottom div");
-  }
+  // if (verticalValue > 300) {
+  //   document.getElementById("myForm-" + y).style.top = "100%";
+  //   console.log("middle div");
+  // }
+  // else if (verticalValue > 300) {
+  //   document.getElementById("myForm-" + y).style.top = "100%";
+  //   console.log("bottom div");
+  // }
 
   document.getElementById("myForm-" + y).style.display = "block";
   // if (vertical > 300) {

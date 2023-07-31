@@ -3,7 +3,7 @@ static %} {% block content %}
 
 <form
   method="post"
-  action="{% url 'computer:add_computer' %}"
+  action="{% url 'computer:computer_add' %}"
   enctype="multipart/form-data"
 >
   {% csrf_token %}

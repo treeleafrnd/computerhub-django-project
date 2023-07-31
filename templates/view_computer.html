@@ -1,8 +1,8 @@
 {% extends 'base.html' %} {% block title %}View Computer{% endblock %} {% load
 static %} {%block content%}
-<a href="{% url 'computer:add_computer' %}">
-  <button class="btn btn-success">Add Computer</button>
-</a>
+<form action="{% url 'computer:computer_add' %}">
+  <button type="submit" class="btn btn-success">Add Computer</button>
+</form>
 <table class="table">
   <thead>
     <tr>
@@ -35,11 +35,11 @@ static %} {%block content%}
       <td>{{data.unit_rate}}</td>
       <td>{{data.total_price}}</td>
       <td>
-        <a href="{% url 'computer:update_computer' data.id %}"
+        <a href="{% url 'computer:computer_update' data.id %}"
           ><button type="submit" class="btn btn-primary">Edit</button></a
         >
 
-        <a href="{% url 'computer:delete_computer' data.id %}"
+        <a href="{% url 'computer:computer_delete' data.id %}"
           ><button class="btn btn-danger" onclick="confirmDelete()">
             Delete
           </button></a
